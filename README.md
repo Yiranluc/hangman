@@ -10,7 +10,8 @@ It's split into two projects:
 Get the server up and running
 ```
 cd hangman-server
-.\venv\Scripts\activate.bat
+virtualenv --python=python3 venv
+source venv\bin\activate
 python server.py
 ```
 
@@ -29,7 +30,6 @@ http://localhost:3000
 Bonus: Try out the command line app
 ```
 cd hangman-server
-.\venv\Scripts\activate.bat
 python app.py
 ```
 
