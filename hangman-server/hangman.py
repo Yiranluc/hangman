@@ -19,6 +19,9 @@ class GuessResult(Enum):
 
 class HangmanGame:
     def __init__(self, word, failed_guesses_limit):
+        if failed_guesses_limit <= 0:
+            raise ValueError('failed_guesses_limit must be over 0')
+
         self.word = word
 
         self.state = GameState.IN_PROGRESS

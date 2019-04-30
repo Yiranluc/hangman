@@ -1,5 +1,7 @@
 from hangman import GameState, GuessResult, create_hangman_game, HangmanGameScorer
 
+# This is missing highscore support
+
 game = create_hangman_game()
 
 while game.state == GameState.IN_PROGRESS:
