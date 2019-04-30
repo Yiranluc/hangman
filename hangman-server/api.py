@@ -1,50 +1,41 @@
 from flask import Blueprint, request, jsonify
 import hangman
+from gamemanager import GameManager
 
 api = Blueprint('api', __name__)
-games = {}
-lastGameId = 0
+
+game_manager = GameManager()
 
 
 @api.route('/api/hangman', methods=['POST'])
-def postHangman():
-    global lastGameId
-    global games
-
-    # TODO Do I need a lock for this?
-    lastGameId += 1
-    game = hangman.createHangmanGame()
-    games[lastGameId] = game
-
-    data = {'gameId': lastGameId}
-
+def post_hangman():
+    game_id, game = game_manager.create_game()
+    data = {'gameId': game_id}
     return jsonify(data), 200
 
 
-@api.route('/api/hangman/<int:gameId>', methods=['GET'])
-def getHangman(gameId):
-    global games
+@api.route('/api/hangman/<int:game_id>', methods=['GET'])
+def get_hangman(game_id):
+    game = game_manager.get_game(game_id)
 
-    if gameId not in games:
+    if game is None:
         return jsonify({'error': 'Game not found'}), 404
 
-    game = games[gameId]
-
     data = {
-        'gameId': gameId,
-        'revealedWord': game.revealedWord,
-        'numFailedGuessesRemaining': game.numFailedGuessesRemaining,
+        'gameId': game_id,
+        'revealedWord': game.revealed_word,
+        'numFailedGuessesRemaining': game.num_failed_guesses_remaining,
         'score': hangman.HangmanGameScorer.score(game)
     }
 
     return jsonify(data), 200
 
 
-@api.route('/api/hangman/<int:gameId>/guess', methods=['POST'])
-def postHangmanGuess(gameId):
-    global games
+@api.route('/api/hangman/<int:game_id>/guess', methods=['POST'])
+def post_hangman_guess(game_id):
+    game = game_manager.getGame(game_id)
 
-    if gameId not in games:
+    if game is None:
         return jsonify({'error': 'Game not found'}), 404
 
     if 'letter' not in request.json:
@@ -52,7 +43,7 @@ def postHangmanGuess(gameId):
 
     letter = request.json['letter']
 
-    result = games[gameId].guess(letter)
+    result = game.guess(letter)
 
     if result == hangman.GuessResult.FAIL_INVALID_INPUT:
         return jsonify({'error': 'Invalid input'}), 400
@@ -65,6 +56,3 @@ def postHangmanGuess(gameId):
         return jsonify({'result': 'Incorrect'}), 200
     else:
         return jsonify({'result': 'Success'}), 200
-
-if __name__ == '__main__':
-    api.run()
