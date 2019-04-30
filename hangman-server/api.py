@@ -9,7 +9,7 @@ api = Blueprint('api', __name__)
 game_manager = GameManager()
 
 
-# Allow the web-app to access these. This shouldn't be use in the prod unless we wanna allow access to the api
+# Allow the web-app to access these endpoints. This shouldn't be used in prod unless we wanna allow access to the api
 # from other domains other than our own
 @api.after_request
 def after_request(response):

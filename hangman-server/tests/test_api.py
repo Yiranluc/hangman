@@ -85,7 +85,7 @@ class TestApiIntegration(TestCase):
         self.assertEqual(response['score'], 4 * 20 + 4 * 10)
 
         response = self.post_guess(game_id, 'a')
-        self.assertEquals(response.status_code, 500)
+        self.assertEqual(response.status_code, 500)
         parsed_response = parse_response(response)
         self.assertEqual(parsed_response['error'], 'Game already over')
 
@@ -104,12 +104,12 @@ class TestApiIntegration(TestCase):
         game_id = response['gameId']
 
         response = self.post_guess(game_id, 'aaaaaa')
-        self.assertEquals(response.status_code, 400)
+        self.assertEqual(response.status_code, 400)
         parsed_response = parse_response(response)
         self.assertEqual(parsed_response['error'], 'Invalid input')
 
         response = self.post_guess(game_id, None)
-        self.assertEquals(response.status_code, 400)
+        self.assertEqual(response.status_code, 400)
         parsed_response = parse_response(response)
         self.assertEqual(parsed_response['error'], '\'letter\' is required input')
 

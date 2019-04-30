@@ -43,8 +43,8 @@ class TestHangmanGame(unittest.TestCase):
         self.assertEqual(result, GuessResult.INCORRECT)
         self.assertEqual(game.state, GameState.LOST)
         self.assertEqual(game.guesses, ['b'])
-        self.assertEqual(game.failed_guess_limit, )
-        self.assertEqual(game.num_failed_guesse1, 0)
+        self.assertEqual(game.failed_guess_limit, 1)
+        self.assertEqual(game.num_failed_guesses_remaining, 0)
         self.assertEqual(game.revealed_word, '_')
         self.assertEqual(game.num_revealed_letters, 0)
 

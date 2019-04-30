@@ -10,6 +10,11 @@ Install requirements
 pip install -r requirements.txt
 ```
 
+Run the tests
+```
+python -m unittest discover tests -v
+```
+
 Start server
 ```
 python server.py
@@ -26,4 +31,5 @@ POST http://localhost:5000/api/hangman/{game_id}/guess
 - User session support
 - Multiprocess support
 - Server-side high score persistence
+- API documentation
 
