@@ -79,7 +79,15 @@ class HangmanGameScorer:
         return points
 
 
-def create_hangman_game():
-    words = ["3dhubs", "marvin", "print", "filament", "order", "layer"]
+def create_hangman_game(words=None, guess_limit=5):
+    if words is None:
+        words = ["3dhubs", "marvin", "print", "filament", "order", "layer"]
+
+    if len(words) <= 0:
+        raise ValueError('words must have at least 1 word')
+
+    if guess_limit <= 0:
+        raise ValueError('guess_limit must be greater than 0')
+
     rand_word = words[random.randint(0, len(words)-1)]
-    return HangmanGame(rand_word, 5)
+    return HangmanGame(rand_word, guess_limit)
