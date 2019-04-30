@@ -1,6 +1,9 @@
 
+// Just hardcoding this here until we need to actually deploy this somewhere
+const API_HOST = 'http://localhost:5000';
+
 async function createGame() {
-	const url = "http://localhost:5000/api/hangman";
+	const url = `${API_HOST}/api/hangman`;
 	const response = await fetch(url, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -10,7 +13,7 @@ async function createGame() {
 }
 
 async function getGame(gameId) {
-	const url = `http://localhost:5000/api/hangman/${gameId}`;
+	const url = `${API_HOST}/api/hangman/${gameId}`;
 	const response = await fetch(url, {
 		method: "GET",
 		headers: { "Content-Type": "application/json" },
@@ -20,7 +23,7 @@ async function getGame(gameId) {
 }
 
 async function makeGuess(gameId, letter) {
-	const url = `http://localhost:5000/api/hangman/${gameId}/guess`;
+	const url = `${API_HOST}/api/hangman/${gameId}/guess`;
 	const response = await fetch(url, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

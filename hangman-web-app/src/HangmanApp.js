@@ -22,7 +22,7 @@ function HangmanApp() {
         const result = await hangman.makeGuess(game.gameId, letter);
         const updatedGame = await hangman.getGame(game.gameId);
 
-        // TODO display show the result of the guessse
+        // TODO display the result of the guesses
 
         setGame(updatedGame);
     }
@@ -33,7 +33,7 @@ function HangmanApp() {
 
     useEffect(() => {
         if (game && game.score && game.state != 'IN_PROGESS') {
-            // Just saving the high score on client side for now
+            // Saving the high score on client side for now until api supports high scores
             const savedHighscore = localStorage.getItem(HIGHSCORE_KEY);
             const currHighscore = parseInt(game.score);
 

@@ -5,11 +5,10 @@ from hangman import GameState, GuessResult, create_hangman_game, HangmanGameScor
 game = create_hangman_game()
 
 while game.state == GameState.IN_PROGRESS:
-
     display_word = "".join([f"{l} " for l in game.revealed_word])
 
     print(display_word)
-    print(f"Guesses remaining: {game.num_failed_guesses_remaining}")
+    print(f'Guesses remaining: {game.num_failed_guesses_remaining}')
 
     guess = input(f"Choose a letter : ")
 
