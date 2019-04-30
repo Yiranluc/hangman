@@ -76,6 +76,6 @@ def post_hangman_guess(game_id):
         return jsonify({'error': 'Letter already guessed'}), 500
 
     if result == hangman.GuessResult.INCORRECT:
-        return jsonify({'result': 'Incorrect'}), 200
+        return jsonify({'result': 'INCORRECT'}), 200
     else:
-        return jsonify({'result': 'Success'}), 200
+        return jsonify({'result': 'CORRECT'}), 200
