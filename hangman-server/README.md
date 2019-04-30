@@ -4,9 +4,14 @@ Hangman REST API written in python using flask
 ## Getting started
 Make sure you're using python 3
 
+Setup virtual env
+```
+virtualenv --python=python3 venv
+source venv/bin/activate
+```
+
 Install requirements
 ```
-./venv/bin/activate
 pip install -r requirements.txt
 ```
 
