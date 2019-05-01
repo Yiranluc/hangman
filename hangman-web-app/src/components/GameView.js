@@ -5,6 +5,15 @@ function Word({revealedWord}) {
     return <p>{wordWithSpaces}</p>;
 }
 
+function GuessDisplay({game, guessResult}) {
+    return  (
+        <div>
+            <p>Guesses Remaining: {game.numFailedGuessesRemaining}</p>
+            <p>{ guessResult.error ? guessResult.error : "" }</p>
+        </div>
+    )
+}
+
 function GuessInput({onLetterUpdated, onGuess}) {
     const [letter, setLetter] = useState('');
 
@@ -32,7 +41,7 @@ function GuessInput({onLetterUpdated, onGuess}) {
             <input
                 type="text"
                 value={letter}
-                autofocus
+                autoFocus
                 onChange={e => setLetter(e.target.value)}
                 onKeyPress={e => onKeyPress(e)}
             />
@@ -47,11 +56,11 @@ function GuessInput({onLetterUpdated, onGuess}) {
 
 }
 
-export default function GameView({game, onLetterUpdated, onGuess}) {
+export default function GameView({game, guessResult, onLetterUpdated, onGuess}) {
     return (
         <div>
             <Word revealedWord={game.revealedWord} />
-            <p>Guesses Remaining: {game.numFailedGuessesRemaining}</p>
+            <GuessDisplay game={game} guessResult={guessResult} />
             <GuessInput onLetterUpdated={onLetterUpdated} onGuess={onGuess} />
         </div>
     );

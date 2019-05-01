@@ -21,6 +21,3 @@ npm run start
 - Error messages/states
 - Handling client errors
 - Loading states
-- Displaying result for invalid guess results
-
-

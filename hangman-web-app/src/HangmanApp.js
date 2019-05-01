@@ -9,6 +9,7 @@ const HIGHSCORE_KEY = 'hangman_highscore';
 function HangmanApp() {
     const [game, setGame] = useState({});
     const [highscore, setHighscore] = useState(0);
+    const [guessResult, setGuessResult] = useState({});
 
     async function startGame() {
         const savedHighscore = localStorage.getItem(HIGHSCORE_KEY);
@@ -20,10 +21,9 @@ function HangmanApp() {
 
     async function makeGuess(letter) {
         const result = await hangman.makeGuess(game.gameId, letter);
+        setGuessResult(result);
+
         const updatedGame = await hangman.getGame(game.gameId);
-
-        // TODO display the result of the guesses
-
         setGame(updatedGame);
     }
 
@@ -50,6 +50,7 @@ function HangmanApp() {
         view =
             <GameView
                 game={game}
+                guessResult={guessResult}
                 onGuess={(letter) => makeGuess(letter)}
             />;
     } else if (game.state) {
