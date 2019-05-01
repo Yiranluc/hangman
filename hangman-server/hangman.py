@@ -22,6 +22,9 @@ class HangmanGame:
         if failed_guesses_limit <= 0:
             raise ValueError('failed_guesses_limit must be over 0')
 
+        if len(word) <= 0:
+            raise ValueError('word must have at least 1 letter')
+
         self.word = word
 
         self.state = GameState.IN_PROGRESS
@@ -31,8 +34,8 @@ class HangmanGame:
         self.revealed_word = ''.join(['_' for i in range(len(word))])
         self.num_revealed_letters = 0
 
-    def guess(self, letter):
-        # TODO uppercase/lowercase
+    def guess(self, input_letter):
+        letter = input_letter.lower()
 
         if not str.isalnum(letter) or len(letter) > 1:
             return GuessResult.FAIL_INVALID_INPUT

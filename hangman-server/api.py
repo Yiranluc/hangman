@@ -66,7 +66,7 @@ def post_hangman_guess(game_id):
 
     result = game.guess(letter)
 
-    # We can check if the game is over and and save their highscore server side here
+    # We can check if the game is over and save their highscore here on server side
 
     if result == hangman.GuessResult.FAIL_INVALID_INPUT:
         return jsonify({'error': 'Invalid input'}), 400

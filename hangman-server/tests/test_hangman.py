@@ -8,6 +8,9 @@ class TestHangmanGame(unittest.TestCase):
         self.assertRaises(ValueError, HangmanGame, 'a', 0)
         self.assertRaises(ValueError, HangmanGame, 'a', -1)
 
+    def test_empty_word_raises_exception(self):
+        self.assertRaises(ValueError, HangmanGame, '', 1)
+
     def test_win(self):
         game = HangmanGame('a', 1)
 
@@ -62,6 +65,9 @@ class TestHangmanGame(unittest.TestCase):
         result = game.guess('.')
         self.assertEqual(result, GuessResult.FAIL_INVALID_INPUT)
 
+        result = game.guess('!')
+        self.assertEqual(result, GuessResult.FAIL_INVALID_INPUT)
+
     def test_valid_input(self):
         valid_chars = 'abcdefghijklmnopqrstuvwxyz1234567890'
         game = HangmanGame(valid_chars, 1)
@@ -71,6 +77,14 @@ class TestHangmanGame(unittest.TestCase):
             self.assertEqual(result, GuessResult.CORRECT)
             self.assertIn(char, game.guesses)
 
+        self.assertEqual(game.state, GameState.WON)
+
+    def test_uppercase_input(self):
+        game = HangmanGame('a', 1)
+
+        result = game.guess('A')
+        self.assertEqual(result, GuessResult.CORRECT)
+        self.assertIn('a', game.guesses)
         self.assertEqual(game.state, GameState.WON)
 
     def test_cant_guess_when_game_over(self):
