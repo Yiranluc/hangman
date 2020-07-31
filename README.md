@@ -32,8 +32,12 @@ So the team has decided that adding the ability for users to undo their last gue
 * Using the undo reduces their score by 50%.
 
 ## What are we looking for?
+
+**Please take no longer than 5 hours to work on this exercise.**
+
+When reviewing your solution we will check: 
 * The feature works as described.
-* The requirements are fulfilled.
+* All requirements are fulfilled.
 * The code is of good quality.
 * Automated tests are always a plus.
 
@@ -80,3 +84,4 @@ cd hangman-server
 python app.py
 ```
 
+Good luck and have fun!
