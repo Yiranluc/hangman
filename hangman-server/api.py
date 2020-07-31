@@ -16,7 +16,7 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE,OPTIONS')
     return response
 
 
@@ -79,3 +79,20 @@ def post_hangman_guess(game_id):
         return jsonify({'result': 'INCORRECT'}), 200
     else:
         return jsonify({'result': 'CORRECT'}), 200
+
+
+@api.route('/api/hangman/<int:game_id>/undo', methods=['PATCH'])
+def patch_hangman_undo(game_id):
+    game = game_manager.get_game(game_id)
+
+    if game is None:
+        return jsonify({'error': 'Game not found'}), 404
+
+    undo_success = game.undo()
+
+    if undo_success:
+        return '', 204
+
+    return jsonify({'error': 'Can\'t undo last guess'}), 400
+
+

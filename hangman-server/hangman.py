@@ -33,6 +33,7 @@ class HangmanGame:
         self.num_failed_guesses_remaining = failed_guesses_limit
         self.revealed_word = ''.join(['_' for i in range(len(word))])
         self.num_revealed_letters = 0
+        self.has_undo = False
 
     def guess(self, input_letter):
         letter = input_letter.lower()
@@ -70,6 +71,27 @@ class HangmanGame:
 
             return GuessResult.INCORRECT
 
+    def undo(self):
+        if not self.has_undo and len(self.guesses) > 0:
+            last_guess = self.guesses[-1]
+
+            for i in range(len(self.revealed_word)):
+                curr_letter = self.revealed_word[i]
+
+                if last_guess == curr_letter:
+
+                    return False
+
+            self.guesses.pop()
+            self.num_failed_guesses_remaining += 1
+            self.has_undo = True
+
+            return True
+
+        return False
+
+
+
 
 class HangmanGameScorer:
     POINTS_PER_LETTER = 20
@@ -79,12 +101,16 @@ class HangmanGameScorer:
     def score(cls, game):
         points = game.num_revealed_letters * HangmanGameScorer.POINTS_PER_LETTER
         points += game.num_failed_guesses_remaining * HangmanGameScorer.POINTS_PER_REMAINING_GUESS
+        if game.has_undo:
+            points = points // 2
+
         return points
 
 
 def create_hangman_game(words=None, guess_limit=5):
     if words is None:
-        words = ["3dhubs", "marvin", "print", "filament", "order", "layer"]
+        words = ["3dhubs"]
+        # words = ["3dhubs", "marvin", "print", "filament", "order", "layer"]
 
     if len(words) <= 0:
         raise ValueError('words must have at least 1 word')
