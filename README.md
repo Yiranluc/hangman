@@ -1,4 +1,4 @@
-# 3D Hubs Engineering Intern Assignment
+# Hangman - Revisited
 It is the year 2034. 
 The COVID pandemic rages on. 
 People around the world have exhausted their supply of entertainment and are now turning to other sources to cure their boredom. 
